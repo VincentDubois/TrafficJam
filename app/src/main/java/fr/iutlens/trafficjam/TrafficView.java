@@ -156,7 +156,7 @@ public class TrafficView extends View {
         // Dimensions à notre disposition
         RectF dst = new RectF(0,0,w,h);
 
-        // Calcule de la transfomrmation désirée (et de son inverse)
+        // Calcul de la transformation désirée (et de son inverse)
         transform.setRectToRect(src,dst, Matrix.ScaleToFit.CENTER);
         transform.invert(reverse);
     }
