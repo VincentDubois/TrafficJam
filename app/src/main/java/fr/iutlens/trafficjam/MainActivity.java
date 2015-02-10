@@ -41,6 +41,9 @@ public class MainActivity extends ActionBarActivity {
     private void update() {
         handler.sleep(40);
         trafficView.act();
+        Traffic.getTmpstotal();
+        findViewById(pas_content);
+
     }
 
 

@@ -74,6 +74,11 @@ public class Car {
         this.speed = speed;
     }
 
+
+    public int getAttente() {
+        return attente;
+    }
+
     /***
      * Passe à la prochaine position
      * @return true si il y a une prochaine position, false si la trajectoire est terminée.
