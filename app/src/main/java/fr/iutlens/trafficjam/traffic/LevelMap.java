@@ -1,8 +1,5 @@
 package fr.iutlens.trafficjam.traffic;
 
-import fr.iutlens.trafficjam.traffic.Car;
-import fr.iutlens.trafficjam.traffic.Track;
-
 /**
  * Created by dubois on 20/01/15.
  */
