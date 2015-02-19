@@ -8,6 +8,7 @@ import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import fr.iutlens.trafficjam.traffic.Car;
@@ -131,6 +132,8 @@ public class TrafficView extends View {
 
 
 
+
+
                 //depart des route horizontal
                 // 1er route
            //     new Track("-1:2:1111111111111111"),// tout droit
@@ -153,7 +156,18 @@ public class TrafficView extends View {
             //    new Track("6:3:333333"),//route de gauche tout droit
            //     new Track("6:3:33332222"),//route de gauche tourne a gauche
         };
-        Signalisation signalisation = new Signalisation(new Feu(map));
+
+        Feu[] feu = new Feu[]{
+
+                new Feu(map,3,8),
+                new Feu(map,8,8),
+                new Feu(map,14,8),
+                new Feu(map,8,15),
+
+
+        };
+
+        Signalisation signalisation = new Signalisation(feu);
         traffic = new Traffic(map, track, signalisation);
 
         transform = new Matrix();
@@ -231,6 +245,17 @@ public class TrafficView extends View {
         transform.invert(reverse);
     }
 
+    public boolean onTouchEvent(MotionEvent event) {
+        int stopfeu = event.getAction();
+        switch (stopfeu) {
+            case MotionEvent.ACTION_DOWN:
+                traffic.invertLight();
+                break;
+        }
+        return true;
+
+
+    }
 
     public int getTmpstotal() {
         return traffic.getTmpstotal();

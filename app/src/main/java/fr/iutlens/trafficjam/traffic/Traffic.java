@@ -16,6 +16,9 @@ public class Traffic {
     private int tmpstotal;
     private Signalisation signalisation;
 
+    public boolean invertLight() {
+        return signalisation.invertLight();
+    }
 
     public Traffic(LevelMap map, Track[] track, Signalisation signalisation) {
         this.map = map;
