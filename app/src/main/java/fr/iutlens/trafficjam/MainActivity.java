@@ -17,6 +17,7 @@ public class MainActivity extends ActionBarActivity {
     private TrafficView trafficView;
     private int tempsRestant;
     private ProgressBar timer;
+    private ProgressBar pas_content;
 
     // Gestion du timer
 
@@ -37,25 +38,29 @@ public class MainActivity extends ActionBarActivity {
             this.removeMessages(0);
             sendMessageDelayed(obtainMessage(0), delayMillis);
         }
+
     }
 
     private RefreshHandler handler;
 
     private void update() {
+        int getTmpstotal;
         handler.sleep(40);
         trafficView.act();
-        Traffic.getTmpstotal();
-        findViewById(pas_content);
-
+        int tmptotal = trafficView.getTmpstotal();
+        ProgressBar  progressBar=(ProgressBar)findViewById(R.id.pas_content);
+        progressBar.setProgress(tmptotal);
     }
 
-        int a = 0;
 
-            tempsRestant--;
 
-        timer.setProgress(tempsRestant);
+        //int a = 0;
 
-    }
+            //tempsRestant--;
+
+     //   timer.setProgress(tempsRestant);
+
+
 
 
     @Override
