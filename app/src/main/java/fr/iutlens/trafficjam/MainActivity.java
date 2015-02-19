@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
@@ -17,6 +18,7 @@ public class MainActivity extends ActionBarActivity {
     private TrafficView trafficView;
     private int tempsRestant;
     private ProgressBar timer;
+    private ProgressBar pas_content;
 
     // Gestion du timer
 
@@ -37,21 +39,35 @@ public class MainActivity extends ActionBarActivity {
             this.removeMessages(0);
             sendMessageDelayed(obtainMessage(0), delayMillis);
         }
+
     }
 
     private RefreshHandler handler;
 
+    private TextView nb_voit;
+
     private void update() {
+        int getTmpstotal;
         handler.sleep(40);
         trafficView.act();
+        int tmptotal = trafficView.getTmpstotal();
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.pas_content);
+        progressBar.setProgress(tmptotal);
+        //}
+        int nbVoitures = trafficView.getNbVoitures(); // on récupère le nombre de voitures dans TrafficView
+        nb_voit = (TextView) findViewById(R.id.nb_voit); // on récupère le TextView
+        nb_voit.setText(""+nbVoitures);
+
+
 
         int a = 0;
 
-            tempsRestant--;
+        tempsRestant--;
 
         timer.setProgress(tempsRestant);
-
     }
+
+
 
 
     @Override
