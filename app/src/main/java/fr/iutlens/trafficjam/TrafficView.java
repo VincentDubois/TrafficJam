@@ -91,7 +91,6 @@ public class TrafficView extends View {
 
         nbVoitures = 60; // nombre de voiture initiailisé à 60 en début de partie
 
-        coord = new CoordSystem(-20,10,15,15);
         coord = new CoordSystem(-7,2,4,6);
 
         int[][] data = {
