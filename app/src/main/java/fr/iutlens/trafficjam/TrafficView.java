@@ -81,19 +81,65 @@ public class TrafficView extends View {
         coord = new CoordSystem(-20,10,15,15);
 
         int[][] data = {
-                {0,0,1,1,0,0},
-                {0,0,1,1,0,0},
-                {1,1,1,1,1,1},
-                {1,1,1,1,1,1},
-                {0,0,1,1,0,0},
-                {0,0,1,1,0,0}};
+                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0}
+
+
+
+
+        };
         map = new LevelMap(data);
 
         Track[] track = new Track[]{
-                new Track("-1:2:1111111"),
-                new Track("3:-1:000000"),
-                new Track("2:6:222333"),
-                new Track("6:3:333000"),
+
+                   new Track("4:-1:000000000000000011111111112222222222222222"),
+                   new Track("-1:8:1111100000001111111111222222211111"),
+                   new Track("-1:8:11111111111111111111"),
+                   new Track("9:-1:000000000000000000000"),
+                   new Track("9:-1:00000000011111222222222"),
+
+
+
+
+
+                //depart des route horizontal
+                // 1er route
+           //     new Track("-1:2:1111111111111111"),// tout droit
+           //     new Track("-1:2:111222"),// 1ere a droite
+            //    new Track("-1:2:1111111222"),// 2eme a droite
+           //     new Track("-1:2:11111111111222"), // 3eme a droite
+            //    new Track("-1:2:11111111111111222"), //4 eme a droite
+
+                //2eme route
+
+
+
+              // new Track("-1:2:111222"),//route de droite tourne a droite
+             //   new Track("-1:2:1111111"),//route de droite tout droit
+             //   new Track("-1:2:1111000"),// route de droit a gauche
+
+            //    new Track("3:-1:000000"),
+             //   new Track("2:6:222333"),
+             //   new Track("6:3:333000"), //route de gauche tourne a droite
+            //    new Track("6:3:333333"),//route de gauche tout droit
+           //     new Track("6:3:33332222"),//route de gauche tourne a gauche
         };
         Signalisation signalisation = new Signalisation(new Feu(map,2,2));
         traffic = new Traffic(map, track, signalisation);
@@ -121,7 +167,9 @@ public class TrafficView extends View {
     //On parcours la carte
         for(int i = 0; i < map.getWidth(); ++i){
             for(int j = 0; j < map.getHeight(); ++j){
-                canvas.drawBitmap(sprite.getBitmap(map.map[i][j]), src,coord.bounds(i,j,i+1,j+1,tmp),null);
+                int code = map.map[i][j];
+                if (code != -1)
+                    canvas.drawBitmap(sprite.getBitmap(code), src,coord.bounds(i,j,i+1,j+1,tmp),null);
             }
         }
 
@@ -157,6 +205,11 @@ public class TrafficView extends View {
 
         // Dimensions dans lesquelles ont souhaite dessiner
         RectF src = coord.bounds(0,0,map.getWidth(),map.getHeight(),tmp);
+
+        src.top += 30;
+        src.bottom -= 30;
+        src.right -= 70;
+        src.left += 70;
 
         // Dimensions à notre disposition
         RectF dst = new RectF(0,0,w,h);
