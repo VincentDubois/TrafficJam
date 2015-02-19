@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
 import java.lang.ref.WeakReference;
 
@@ -14,6 +15,8 @@ public class MainActivity extends ActionBarActivity {
 
 
     private TrafficView trafficView;
+    private int tempsRestant;
+    private ProgressBar timer;
 
     // Gestion du timer
 
@@ -46,6 +49,13 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+        int a = 0;
+
+            tempsRestant--;
+
+        timer.setProgress(tempsRestant);
+
+    }
 
 
     @Override
@@ -57,6 +67,9 @@ public class MainActivity extends ActionBarActivity {
         trafficView = (TrafficView) findViewById(R.id.view);
 
         // on démarre l'animation
+        timer =(ProgressBar)findViewById(R.id.timer);
+        timer.setMax(1000);
+        tempsRestant = 1000;
         update();
     }
 

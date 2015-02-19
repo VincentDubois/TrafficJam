@@ -18,10 +18,12 @@
     <ProgressBar
         android:layout_width="120dp"
         android:layout_height="wrap_content"
+        style="@android:style/Widget.ProgressBar.Horizontal"
         android:id="@+id/timer"
         android:layout_alignBottom="@+id/view"
         android:layout_alignLeft="@+id/view"
-        android:layout_alignStart="@+id/view" />
+        android:layout_alignStart="@+id/view"
+        android:indeterminate="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,9 +37,11 @@
     <ProgressBar
         android:layout_width="120dp"
         android:layout_height="wrap_content"
+        style="@android:style/Widget.ProgressBar.Horizontal"
         android:id="@+id/pas_content"
         android:layout_above="@+id/timer"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:indeterminate="false" />
 
 </RelativeLayout>

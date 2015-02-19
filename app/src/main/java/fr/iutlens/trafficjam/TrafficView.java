@@ -215,4 +215,7 @@ public class TrafficView extends View {
     }
 
 
+    public int getTmpstotal() {
+        return traffic.getTmpstotal();
+    }
 }
