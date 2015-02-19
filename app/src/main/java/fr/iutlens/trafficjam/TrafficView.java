@@ -46,16 +46,12 @@ public class TrafficView extends View {
 
     // Configuration du compteur de voitures
     private int nbVoitures; // crée un champ du nombre de voitures à faire passer
-
-    private MainActivity mainactivity;
-
     public int getNbVoitures() { // fonction permettant de récupérer le nombre de voiture restant à faire passer
         return nbVoitures;
-    }
+    } // get du nombre de voitures
 
     void deleteCar() {
-        nbVoitures = nbVoitures - 1;
-        // mainactivity = (MainActivity) findViewById(R.id.Nb_voiture);
+        nbVoitures -= 1;
     }
 
 

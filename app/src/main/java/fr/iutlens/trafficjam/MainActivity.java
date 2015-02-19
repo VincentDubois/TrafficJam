@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
@@ -38,9 +39,14 @@ public class MainActivity extends ActionBarActivity {
 
     private RefreshHandler handler;
 
+    private TextView nb_voit;
+
     private void update() {
         handler.sleep(40);
         trafficView.act();
+        int nbVoitures = trafficView.getNbVoitures(); // on récupère le nombre de voitures dans TrafficView
+        nb_voit = (TextView) findViewById(R.id.nb_voit); // on récupère le TextView
+        nb_voit.setText(""+nbVoitures);
     }
 
 
