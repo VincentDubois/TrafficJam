@@ -13,12 +13,13 @@ public class Traffic {
     private final LevelMap map; // Carte du niveau.
     private Map<Integer,Car> current,next,tmp; // Voitures indexées par position.
     private final Track[] track; // liste des chemins emmpruntable.
+    private Signalisation signalisation;
 
 
-    public Traffic(LevelMap map, Track[] track) {
+    public Traffic(LevelMap map, Track[] track, Signalisation signalisation) {
         this.map = map;
         this.track = track;
-
+        this.signalisation = signalisation;
         current = new HashMap();
         next = new HashMap();
     }
@@ -29,7 +30,13 @@ public class Traffic {
 
     public boolean canMove(Car car){
         int nextNdx = map.getNextMoveNdx(car);
-        return (current.get(nextNdx) == null);
+        if(signalisation.allowMove(nextNdx,car.getAngle() )){
+            return (current.get(nextNdx) == null);
+        }
+        else{
+            return false;
+        }
+
     }
 
     public void moveAll(){
@@ -48,6 +55,17 @@ public class Traffic {
         next.clear();
 
         // Les voitures ont maintenant terminé le round précédent.
+
+      /*  for(Car car : current.values()){
+            if (canMove(car)){
+                car.setSpeed(1);
+            } else {
+                car.setSpeed(0);
+                next.put(map.getNdx(car),car); // Pour les voitures à l'arrêt, la position lors du
+                // prochain round est connue et définitive.
+            }
+        }*/
+
 
         // On calcule les voitures qui peuvent avancer
         for(Car car : current.values()){
@@ -74,7 +92,7 @@ public class Traffic {
         // Ajout si possible de nouveaux véhicules
         for(Track t : track ){
             int ndx = map.getNdx(t);
-            if (current.get(ndx) == null && Math.random() <0.25){ // 1 fois 4 qd la position est libre
+            if (current.get(ndx) == null && Math.random() <0.10){ // 1 fois 4 qd la position est libre
                 Car car = new Car(t);
                 if (next.get(map.getNextMoveNdx(car))== null)  car.setSpeed(1); //roule si voie libre.
                 current.put(map.getNdx(car), car);
@@ -85,5 +103,5 @@ public class Traffic {
     }
 
 
-
 }
+
