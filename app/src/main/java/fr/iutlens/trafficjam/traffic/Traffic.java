@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.iutlens.trafficjam.TrafficView;
+
 /**
  * Created by dubois on 20/01/15.
  */
@@ -15,15 +17,17 @@ public class Traffic {
     private final Track[] track; // liste des chemins emmpruntable.
     private int tmpstotal;
     private Signalisation signalisation;
+    private TrafficView trafficView;
 
     public boolean invertLight() {
         return signalisation.invertLight();
     }
 
-    public Traffic(LevelMap map, Track[] track, Signalisation signalisation) {
+    public Traffic(LevelMap map, Track[] track, Signalisation signalisation, TrafficView trafficView) {
         this.map = map;
         this.track = track;
         this.signalisation = signalisation;
+        this.trafficView = trafficView;
         current = new HashMap();
         next = new HashMap();
     }
@@ -54,6 +58,9 @@ public class Traffic {
             if (car.next()){ //On déplace la voiture, et si la voiture a encore du chemin à faire
                 next.put(map.getNdx(car),car); // on l'insère dans le prochain round
                 tmpstotal = car.getAttente() + tmpstotal;
+            }
+            else {
+                trafficView.deleteCar();
             }
         }
 
