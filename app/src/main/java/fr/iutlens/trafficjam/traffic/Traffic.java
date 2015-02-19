@@ -13,6 +13,7 @@ public class Traffic {
     private final LevelMap map; // Carte du niveau.
     private Map<Integer,Car> current,next,tmp; // Voitures indexées par position.
     private final Track[] track; // liste des chemins emmpruntable.
+    private int tmpstotal;
     private Signalisation signalisation;
 
 
@@ -39,12 +40,17 @@ public class Traffic {
 
     }
 
-    public void moveAll(){
+    public int getTmpstotal() {
+        return tmpstotal;
+    }
 
+    public void moveAll(){
+        tmpstotal = 0;
         //Termine les déplacements du round précédent
         for(Car car : current.values()){
             if (car.next()){ //On déplace la voiture, et si la voiture a encore du chemin à faire
                 next.put(map.getNdx(car),car); // on l'insère dans le prochain round
+                tmpstotal = car.getAttente() + tmpstotal;
             }
         }
 
@@ -74,8 +80,9 @@ public class Traffic {
             } else {
                 car.setSpeed(0);
                 next.put(map.getNdx(car),car); // Pour les voitures à l'arrêt, la position lors du
-                                                // prochain round est connue et définitive.
+                                              // prochain round est connue et définitive.
             }
+
         }
 
         // Parmi les voitures en mouvement, on règle les conflits (priorité, accidents ?)
