@@ -14,12 +14,13 @@ public class Traffic {
     private Map<Integer,Car> current,next,tmp; // Voitures indexées par position.
     private final Track[] track; // liste des chemins emmpruntable.
     private int tmpstotal;
+    private Signalisation signalisation;
 
 
-    public Traffic(LevelMap map, Track[] track) {
+    public Traffic(LevelMap map, Track[] track, Signalisation signalisation) {
         this.map = map;
         this.track = track;
-
+        this.signalisation = signalisation;
         current = new HashMap();
         next = new HashMap();
     }
@@ -30,7 +31,13 @@ public class Traffic {
 
     public boolean canMove(Car car){
         int nextNdx = map.getNextMoveNdx(car);
-        return (current.get(nextNdx) == null);
+        if(signalisation.allowMove(nextNdx,car.getAngle() )){
+            return (current.get(nextNdx) == null);
+        }
+        else{
+            return false;
+        }
+
     }
 
     public int getTmpstotal() {
@@ -54,6 +61,17 @@ public class Traffic {
         next.clear();
 
         // Les voitures ont maintenant terminé le round précédent.
+
+      /*  for(Car car : current.values()){
+            if (canMove(car)){
+                car.setSpeed(1);
+            } else {
+                car.setSpeed(0);
+                next.put(map.getNdx(car),car); // Pour les voitures à l'arrêt, la position lors du
+                // prochain round est connue et définitive.
+            }
+        }*/
+
 
         // On calcule les voitures qui peuvent avancer
         for(Car car : current.values()){
@@ -92,5 +110,5 @@ public class Traffic {
     }
 
 
-
 }
+
