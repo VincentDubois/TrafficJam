@@ -1,7 +1,5 @@
 package fr.iutlens.trafficjam.traffic;
 
-import java.util.Map;
-
 public class Feu {
     private LevelMap map;
     private int i;
@@ -17,6 +15,10 @@ public class Feu {
                        //0=Nord           1=Est            2=Sud            3=Ouest
         light=true;
     }
+
+    public boolean invertLight(){
+         return light=!light;
+        }
 
     public boolean allowMove(int position, int direction) {
         if(ndx[direction] == position){

@@ -15,6 +15,9 @@ public class Traffic {
     private final Track[] track; // liste des chemins emmpruntable.
     private Signalisation signalisation;
 
+    public boolean invertLight() {
+        return signalisation.invertLight();
+    }
 
     public Traffic(LevelMap map, Track[] track, Signalisation signalisation) {
         this.map = map;

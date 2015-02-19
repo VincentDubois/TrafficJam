@@ -8,6 +8,7 @@ import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import fr.iutlens.trafficjam.traffic.Car;
@@ -44,6 +45,7 @@ public class TrafficView extends View {
     static PaintFlagsDrawFilter setfil= new PaintFlagsDrawFilter(0,
                 Paint.FILTER_BITMAP_FLAG | Paint.ANTI_ALIAS_FLAG);
     private Rect src;
+
 
 
     // 3 constructeurs obligatoires pour une vue. Les 3 appellent init() pour ne pas dupliquer le code.
@@ -164,5 +166,16 @@ public class TrafficView extends View {
         transform.invert(reverse);
     }
 
+    public boolean onTouchEvent(MotionEvent event) {
+        int stopfeu = event.getAction();
+        switch (stopfeu) {
+            case MotionEvent.ACTION_DOWN:
+                traffic.invertLight();
+                break;
+        }
+        return true;
+
+
+    }
 
 }
