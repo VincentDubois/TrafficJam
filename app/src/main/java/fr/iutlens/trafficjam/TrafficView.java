@@ -53,7 +53,7 @@ public class TrafficView extends View {
     } // get du nombre de voitures
 
     void deleteCar() {
-        nbVoitures -= 1;
+        nbVoitures--;
     }
 
 

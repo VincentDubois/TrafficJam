@@ -50,7 +50,7 @@ public class MainActivity extends ActionBarActivity {
         int nbVoitures = trafficView.getNbVoitures(); // on récupère le nombre de voitures dans TrafficView
         nb_voit = (TextView) findViewById(R.id.nb_voit); // on récupère le TextView
         nb_voit.setText(""+nbVoitures);
-    }
+
 
         int a = 0;
 
