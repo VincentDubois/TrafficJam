@@ -48,11 +48,12 @@ public class TrafficView extends View {
 
     // Configuration du compteur de voitures
     private int nbVoitures; // crée un champ du nombre de voitures à faire passer
+
     public int getNbVoitures() { // fonction permettant de récupérer le nombre de voiture restant à faire passer
         return nbVoitures;
     } // get du nombre de voitures
 
-    void deleteCar() {
+    public void deleteCar() {
         nbVoitures--;
     }
 
@@ -154,7 +155,7 @@ public class TrafficView extends View {
            //     new Track("6:3:33332222"),//route de gauche tourne a gauche
         };
         Signalisation signalisation = new Signalisation(new Feu(map));
-        traffic = new Traffic(map, track, signalisation);
+        traffic = new Traffic(map, track, signalisation, this);
 
         transform = new Matrix();
         reverse = new Matrix();
