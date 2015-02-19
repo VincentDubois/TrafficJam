@@ -93,7 +93,7 @@ public class TrafficView extends View {
                 new Track("2:6:222333"),
                 new Track("6:3:333000"),
         };
-        Signalisation signalisation = new Signalisation(new Feu(map));
+        Signalisation signalisation = new Signalisation(new Feu(map,2,2));
         traffic = new Traffic(map, track, signalisation);
 
         transform = new Matrix();
