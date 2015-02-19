@@ -11,7 +11,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import fr.iutlens.trafficjam.traffic.Car;
+import fr.iutlens.trafficjam.traffic.Feu;
 import fr.iutlens.trafficjam.traffic.LevelMap;
+import fr.iutlens.trafficjam.traffic.Signalisation;
 import fr.iutlens.trafficjam.traffic.Track;
 import fr.iutlens.trafficjam.traffic.Traffic;
 import fr.iutlens.trafficjam.util.CoordSystem;
@@ -151,7 +153,8 @@ public class TrafficView extends View {
             //    new Track("6:3:333333"),//route de gauche tout droit
            //     new Track("6:3:33332222"),//route de gauche tourne a gauche
         };
-        traffic = new Traffic(map, track);
+        Signalisation signalisation = new Signalisation(new Feu(map));
+        traffic = new Traffic(map, track, signalisation);
 
         transform = new Matrix();
         reverse = new Matrix();
