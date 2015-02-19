@@ -46,6 +46,17 @@ public class TrafficView extends View {
     private Rect src;
 
 
+    // Configuration du compteur de voitures
+    private int nbVoitures; // crée un champ du nombre de voitures à faire passer
+    public int getNbVoitures() { // fonction permettant de récupérer le nombre de voiture restant à faire passer
+        return nbVoitures;
+    } // get du nombre de voitures
+
+    void deleteCar() {
+        nbVoitures--;
+    }
+
+
     // 3 constructeurs obligatoires pour une vue. Les 3 appellent init() pour ne pas dupliquer le code.
 
     public TrafficView(Context context) {
@@ -76,6 +87,9 @@ public class TrafficView extends View {
     }
 
     void init(){
+
+        nbVoitures = 60; // nombre de voiture initiailisé à 60 en début de partie
+
         coord = new CoordSystem(-20,10,15,15);
 
         int[][] data = {
