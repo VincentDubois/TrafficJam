@@ -74,7 +74,7 @@ public class TrafficView extends View {
     }
 
     void init(){
-        coord = new CoordSystem(-20,10,15,15);
+        coord = new CoordSystem(-7,2,4,6);
 
         int[][] data = {
                 {0,0,1,1,0,0},
