@@ -26,7 +26,7 @@ public class SpriteSheet {
 	static {
 		map = new HashMap();
 		
-		map.put(R.drawable.sprite, new SpriteSheet(2,3));
+		map.put(R.drawable.sprite, new SpriteSheet(2,7));
 
 
 		
