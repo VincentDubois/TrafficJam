@@ -48,17 +48,17 @@ public class MainActivity extends ActionBarActivity {
         handler.sleep(40);
         trafficView.act();
         int tmptotal = trafficView.getTmpstotal();
-        ProgressBar  progressBar=(ProgressBar)findViewById(R.id.pas_content);
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.pas_content);
         progressBar.setProgress(tmptotal);
+        //}
+
+
+        int a = 0;
+
+        tempsRestant--;
+
+        timer.setProgress(tempsRestant);
     }
-
-
-
-        //int a = 0;
-
-            //tempsRestant--;
-
-     //   timer.setProgress(tempsRestant);
 
 
 
