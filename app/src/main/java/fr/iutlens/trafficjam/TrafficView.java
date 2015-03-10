@@ -8,10 +8,13 @@ import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import fr.iutlens.trafficjam.traffic.Car;
+import fr.iutlens.trafficjam.traffic.Feu;
 import fr.iutlens.trafficjam.traffic.LevelMap;
+import fr.iutlens.trafficjam.traffic.Signalisation;
 import fr.iutlens.trafficjam.traffic.Track;
 import fr.iutlens.trafficjam.traffic.Traffic;
 import fr.iutlens.trafficjam.util.CoordSystem;
@@ -44,6 +47,18 @@ public class TrafficView extends View {
     private Rect src;
 
 
+    // Configuration du compteur de voitures
+    private int nbVoitures; // crée un champ du nombre de voitures à faire passer
+
+    public int getNbVoitures() { // fonction permettant de récupérer le nombre de voiture restant à faire passer
+        return nbVoitures;
+    } // get du nombre de voitures
+
+    public void deleteCar() {
+        nbVoitures--;
+    }
+
+
     // 3 constructeurs obligatoires pour une vue. Les 3 appellent init() pour ne pas dupliquer le code.
 
     public TrafficView(Context context) {
@@ -74,26 +89,29 @@ public class TrafficView extends View {
     }
 
     void init(){
-        coord = new CoordSystem(-20,10,15,15);
+
+        nbVoitures = 60; // nombre de voiture initiailisé à 60 en début de partie
+
+        coord = new CoordSystem(-7,2,4,6);
 
         int[][] data = {
                 {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0},
+                {12,12,12,12,12,12,12,7,1,1,9,12,12,12,12,12,12,0,0,0},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
+                {13,13,13,13,13,13,13,6,1,1,8,13,13,13,6,1,1,0,0,0},
                 {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0},
-                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0},
-                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0},
+                {12,12,12,12,12,12,12,7,1,1,9,12,12,12,7,1,1,9,12,12},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                {13,13,13,13,13,13,13,6,1,1,8,13,13,13,6,1,1,8,13,13},
                 {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0},
                 {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0},
-                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0},
-                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0},
+                {12,12,12,12,12,12,12,7,1,1,9,12,12,12,7,1,1,0,0,0},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
-                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0},
-                {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0},
+                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,0,0},
+                {13,13,13,13,13,13,13,6,1,1,13,13,13,13,13,13,13,13,13,13},
                 {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0}
 
@@ -110,6 +128,8 @@ public class TrafficView extends View {
                    new Track("-1:8:11111111111111111111"),
                    new Track("9:-1:000000000000000000000"),
                    new Track("9:-1:00000000011111222222222"),
+
+
 
 
 
@@ -137,7 +157,19 @@ public class TrafficView extends View {
             //    new Track("6:3:333333"),//route de gauche tout droit
            //     new Track("6:3:33332222"),//route de gauche tourne a gauche
         };
-        traffic = new Traffic(map, track);
+
+        Feu[] feu = new Feu[]{
+
+                new Feu(map,3,8),
+                new Feu(map,8,8),
+                new Feu(map,14,8),
+                new Feu(map,8,15),
+
+
+        };
+
+        Signalisation signalisation = new Signalisation(feu);
+        traffic = new Traffic(map, track, signalisation, this);
 
         transform = new Matrix();
         reverse = new Matrix();
@@ -214,5 +246,19 @@ public class TrafficView extends View {
         transform.invert(reverse);
     }
 
+    public boolean onTouchEvent(MotionEvent event) {
+        int stopfeu = event.getAction();
+        switch (stopfeu) {
+            case MotionEvent.ACTION_DOWN:
+                traffic.invertLight();
+                break;
+        }
+        return true;
 
+
+    }
+
+    public int getTmpstotal() {
+        return traffic.getTmpstotal();
+    }
 }

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
@@ -19,13 +20,14 @@ public class MainActivity extends ActionBarActivity {
     private TrafficView trafficView;
     private int tempsRestant;
     private ProgressBar timer;
+    private ProgressBar pas_content;
 
     // Gestion du timer
 
     static class RefreshHandler extends Handler {
         WeakReference<MainActivity> weak;
 
-        RefreshHandler(MainActivity animator) {
+        RefreshHandler(MainActivity animator){
             weak = new WeakReference(animator);
         }
 
@@ -39,16 +41,26 @@ public class MainActivity extends ActionBarActivity {
             this.removeMessages(0);
             sendMessageDelayed(obtainMessage(0), delayMillis);
         }
+
     }
 
     private RefreshHandler handler;
 
-    private AlertDialog update() {
+    private TextView nb_voit;
+
+    private void update() {
 
         if (tempsRestant > 0) {
             handler.sleep(40);
             trafficView.act();
-            int a = 0;
+
+            int tmptotal = trafficView.getTmpstotal();
+            ProgressBar progressBar = (ProgressBar) findViewById(R.id.pas_content);
+            progressBar.setProgress(tmptotal);
+            //}
+            int nbVoitures = trafficView.getNbVoitures(); // on récupère le nombre de voitures dans TrafficView
+            nb_voit = (TextView) findViewById(R.id.nb_voit); // on récupère le TextView
+            nb_voit.setText(""+nbVoitures);
 
             tempsRestant--;
 
@@ -68,10 +80,12 @@ public class MainActivity extends ActionBarActivity {
                         }
                     });
             // Create the AlertDialog object and return it
-            return builder.create();
+            builder.create();
         }
-        return null;
+      
     }
+
+
 
 
     @Override
