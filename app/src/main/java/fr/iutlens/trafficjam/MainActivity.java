@@ -1,5 +1,7 @@
 package fr.iutlens.trafficjam;
 
+import android.app.Activity;
+import android.os.Bundle;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Handler;
@@ -14,7 +16,7 @@ import android.widget.TextView;
 import java.lang.ref.WeakReference;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
 
     private TrafficView trafficView;
