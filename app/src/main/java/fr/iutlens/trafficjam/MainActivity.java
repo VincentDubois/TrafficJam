@@ -1,18 +1,20 @@
 package fr.iutlens.trafficjam;
 
+import android.app.Activity;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
 
     private TrafficView trafficView;
@@ -73,6 +75,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         handler = new RefreshHandler(this);
 
