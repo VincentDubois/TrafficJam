@@ -10,7 +10,7 @@ import android.util.Log;
  */
 public class CoordSystem {
 
-    //Système de projection cavalière
+    //Système de projection cavalière (pour une grille en perspective)
 
     Matrix projection,inverse;
 
