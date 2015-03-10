@@ -1,19 +1,28 @@
 package fr.iutlens.trafficjam;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
 
     private TrafficView trafficView;
+    private int tempsRestant;
+    private ProgressBar timer;
+    private ProgressBar pas_content;
 
     // Gestion du timer
 
@@ -34,14 +43,69 @@ public class MainActivity extends ActionBarActivity {
             this.removeMessages(0);
             sendMessageDelayed(obtainMessage(0), delayMillis);
         }
+
     }
 
     private RefreshHandler handler;
 
-    private void update() { // mise à jours
-        handler.sleep(40);  // toutes les 40ms
-        trafficView.act();
+    private TextView nb_voit;
+
+    private void update() {
+
+        if (tempsRestant > 0 && trafficView.getNbVoitures()>0) {
+            handler.sleep(40);
+            trafficView.act();
+
+            int tmptotal = trafficView.getTmpstotal();
+            ProgressBar progressBar = (ProgressBar) findViewById(R.id.pas_content);
+            progressBar.setProgress(tmptotal);
+            //}
+            int nbVoitures = trafficView.getNbVoitures(); // on récupère le nombre de voitures dans TrafficView
+            nb_voit = (TextView) findViewById(R.id.nb_voit); // on récupère le TextView
+            nb_voit.setText(""+nbVoitures);
+
+            tempsRestant--;
+
+            timer.setProgress(tempsRestant);
+
+        } else if (tempsRestant <= 0) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage(R.string.game_over)
+                    .setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            builder.create().show();
+
+        } else if (trafficView.getNbVoitures() <= 0) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage(R.string.win)
+                    .setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            builder.create().show();
+
+            // TODO : Gérer la possibilité de retourner au menu et de rejouer
+
+        }
+      
     }
+
 
 
 
@@ -54,6 +118,9 @@ public class MainActivity extends ActionBarActivity {
         trafficView = (TrafficView) findViewById(R.id.view);
 
         // on démarre l'animation
+        timer = (ProgressBar) findViewById(R.id.timer);
+        timer.setMax(300); // valeur de base : 200
+        tempsRestant = 300; // valeur de base : 200
         update();
     }
 

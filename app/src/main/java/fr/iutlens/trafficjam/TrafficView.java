@@ -8,10 +8,13 @@ import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import fr.iutlens.trafficjam.traffic.Car;
+import fr.iutlens.trafficjam.traffic.Feu;
 import fr.iutlens.trafficjam.traffic.LevelMap;
+import fr.iutlens.trafficjam.traffic.Signalisation;
 import fr.iutlens.trafficjam.traffic.Track;
 import fr.iutlens.trafficjam.traffic.Traffic;
 import fr.iutlens.trafficjam.util.CoordSystem;
@@ -44,6 +47,18 @@ public class TrafficView extends View {
     private Rect src;
 
 
+    // Configuration du compteur de voitures
+    private int nbVoitures; // crée un champ du nombre de voitures à faire passer
+
+    public int getNbVoitures() { // fonction permettant de récupérer le nombre de voiture restant à faire passer
+        return nbVoitures;
+    } // get du nombre de voitures
+
+    public void deleteCar() {
+        nbVoitures--;
+    }
+
+
     // 3 constructeurs obligatoires pour une vue. Les 3 appellent init() pour ne pas dupliquer le code.
 
     public TrafficView(Context context) {
@@ -74,8 +89,11 @@ public class TrafficView extends View {
     }
 
     void init(){
+
+        nbVoitures = 60; // nombre de voiture initiailisé en début de partie
+        // TODO : nombre de voitures à définir selon la difficulté du jeu
+
         coord = new CoordSystem(-7,2,4,6);
-        //-20,10,15,15
 
 //                                       NIVEAU 1 (didacticiel)
 //        int[][] data = {
@@ -176,9 +194,21 @@ public class TrafficView extends View {
 //                  new Track("1:11:11111111111111111111111111111:20"), //BAS GAUCHE
 //                  new Track("25:12:3333333333333333333333333333:20"), //HAUT DROITE
 //
-       };
-
+        };
         traffic = new Traffic(map, track);
+
+        Feu[] feu = new Feu[]{
+
+                new Feu(map,3,8),
+                new Feu(map,8,8),
+                new Feu(map,14,8),
+                new Feu(map,8,15),
+
+
+        };
+
+        Signalisation signalisation = new Signalisation(feu);
+        traffic = new Traffic(map, track, signalisation, this);
 
         transform = new Matrix();
         reverse = new Matrix();
@@ -199,7 +229,8 @@ public class TrafficView extends View {
             return;
         }
 
-    //On parcours la carte (on affiche)
+
+    //On parcours la carte
         for(int i = 0; i < map.getWidth(); ++i){
             for(int j = 0; j < map.getHeight(); ++j){
                 int code = map.map[i][j];
@@ -245,10 +276,6 @@ public class TrafficView extends View {
         src.bottom += -81;       //30        88
         src.right += -90;        //35        48
 
-//        src.top += 180;           //30        88
-//        src.left += 210;          //35        48
-//        src.bottom += -180;       //30        88
-//        src.right += -210;        //35        48
         // Dimensions à notre disposition
         RectF dst = new RectF(0,0,w,h);
 
@@ -257,5 +284,19 @@ public class TrafficView extends View {
         transform.invert(reverse);
     }
 
+    public boolean onTouchEvent(MotionEvent event) {
+        int stopfeu = event.getAction();
+        switch (stopfeu) {
+            case MotionEvent.ACTION_DOWN:
+                traffic.invertLight();
+                break;
+        }
+        return true;
 
+
+    }
+
+    public int getTmpstotal() {
+        return traffic.getTmpstotal();
+    }
 }

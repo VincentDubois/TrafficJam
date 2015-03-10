@@ -1,8 +1,5 @@
 package fr.iutlens.trafficjam.traffic;
 
-import fr.iutlens.trafficjam.traffic.Car;
-import fr.iutlens.trafficjam.traffic.Track;
-
 /**
  * Created by dubois on 20/01/15.
  */
@@ -80,5 +77,11 @@ public class LevelMap {
 
     public int getJ(int ndx){
         return ndx/(width+2);
+    }
+
+    public void setColor(int ndx, int value) {
+        int i=getI(ndx);
+        int j=getJ(ndx);
+        map[i][j]=value;
     }
 }

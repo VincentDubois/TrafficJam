@@ -10,6 +10,7 @@ public class Car {
 
     Track track; // Piste suivie
     int ndx; // position sur la piste
+    private int attente;
 
     /***
      * Crée une voiture au début d'une piste.
@@ -73,6 +74,11 @@ public class Car {
         this.speed = speed;
     }
 
+
+    public int getAttente() {
+        return attente;
+    }
+
     /***
      * Passe à la prochaine position
      * @return true si il y a une prochaine position, false si la trajectoire est terminée.
@@ -83,6 +89,9 @@ public class Car {
             x = nextX();
             y = nextY();
             this.angle = track.getMove(ndx);
+        }
+        else {
+            attente=attente+1;
         }
 
         return angle != -1;

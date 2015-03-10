@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.iutlens.trafficjam.TrafficView;
+
 /**
  * Created by dubois on 20/01/15.
  */
@@ -13,12 +15,19 @@ public class Traffic {
     private final LevelMap map; // Carte du niveau.
     private Map<Integer,Car> current,next,tmp; // Voitures indexées par position.
     private final Track[] track; // liste des chemins emmpruntable.
+    private int tmpstotal;
+    private Signalisation signalisation;
+    private TrafficView trafficView;
 
+    public boolean invertLight() {
+        return signalisation.invertLight();
+    }
 
-    public Traffic(LevelMap map, Track[] track) {
+    public Traffic(LevelMap map, Track[] track, Signalisation signalisation, TrafficView trafficView) {
         this.map = map;
         this.track = track;
-
+        this.signalisation = signalisation;
+        this.trafficView = trafficView;
         current = new HashMap();
         next = new HashMap();
     }
@@ -29,15 +38,29 @@ public class Traffic {
 
     public boolean canMove(Car car){
         int nextNdx = map.getNextMoveNdx(car);
-        return (current.get(nextNdx) == null);
+        if(signalisation.allowMove(nextNdx,car.getAngle() )){
+            return (current.get(nextNdx) == null);
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    public int getTmpstotal() {
+        return tmpstotal;
     }
 
     public void moveAll(){
-
+        tmpstotal = 0;
         //Termine les déplacements du round précédent
         for(Car car : current.values()){
             if (car.next()){ //On déplace la voiture, et si la voiture a encore du chemin à faire
                 next.put(map.getNdx(car),car); // on l'insère dans le prochain round
+                tmpstotal = car.getAttente() + tmpstotal;
+            }
+            else {
+                trafficView.deleteCar();
             }
         }
 
@@ -49,6 +72,17 @@ public class Traffic {
 
         // Les voitures ont maintenant terminé le round précédent.
 
+      /*  for(Car car : current.values()){
+            if (canMove(car)){
+                car.setSpeed(1);
+            } else {
+                car.setSpeed(0);
+                next.put(map.getNdx(car),car); // Pour les voitures à l'arrêt, la position lors du
+                // prochain round est connue et définitive.
+            }
+        }*/
+
+
         // On calcule les voitures qui peuvent avancer
         for(Car car : current.values()){
             if (canMove(car)){
@@ -56,8 +90,9 @@ public class Traffic {
             } else {
                 car.setSpeed(0);
                 next.put(map.getNdx(car),car); // Pour les voitures à l'arrêt, la position lors du
-                                                // prochain round est connue et définitive.
+                                              // prochain round est connue et définitive.
             }
+
         }
 
         // Parmi les voitures en mouvement, on règle les conflits (priorité, accidents ?)
@@ -86,3 +121,4 @@ public class Traffic {
     }
 
 }
+
