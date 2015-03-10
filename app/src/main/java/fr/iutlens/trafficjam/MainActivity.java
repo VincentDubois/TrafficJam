@@ -2,12 +2,14 @@ package fr.iutlens.trafficjam;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -49,24 +51,40 @@ public class MainActivity extends Activity {
     private TextView nb_voit;
 
     private void update() {
-        int getTmpstotal;
-        handler.sleep(40);
-        trafficView.act();
-        int tmptotal = trafficView.getTmpstotal();
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.pas_content);
-        progressBar.setProgress(tmptotal);
-        //}
-        int nbVoitures = trafficView.getNbVoitures(); // on récupère le nombre de voitures dans TrafficView
-        nb_voit = (TextView) findViewById(R.id.nb_voit); // on récupère le TextView
-        nb_voit.setText(""+nbVoitures);
 
+        if (tempsRestant > 0) {
+            handler.sleep(40);
+            trafficView.act();
 
+            int tmptotal = trafficView.getTmpstotal();
+            ProgressBar progressBar = (ProgressBar) findViewById(R.id.pas_content);
+            progressBar.setProgress(tmptotal);
+            //}
+            int nbVoitures = trafficView.getNbVoitures(); // on récupère le nombre de voitures dans TrafficView
+            nb_voit = (TextView) findViewById(R.id.nb_voit); // on récupère le TextView
+            nb_voit.setText(""+nbVoitures);
 
-        int a = 0;
+            tempsRestant--;
 
-        tempsRestant--;
+            timer.setProgress(tempsRestant);
 
-        timer.setProgress(tempsRestant);
+        } else {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage(R.string.game_over)
+                    .setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            builder.create().show();
+        }
+      
     }
 
 
@@ -75,19 +93,17 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         handler = new RefreshHandler(this);
 
         trafficView = (TrafficView) findViewById(R.id.view);
 
         // on démarre l'animation
-        timer =(ProgressBar)findViewById(R.id.timer);
-        timer.setMax(1000);
-        tempsRestant = 1000;
+        timer = (ProgressBar) findViewById(R.id.timer);
+        timer.setMax(200);
+        tempsRestant = 200;
         update();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
