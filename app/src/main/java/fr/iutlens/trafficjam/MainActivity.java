@@ -80,7 +80,7 @@ public class MainActivity extends ActionBarActivity {
                         }
                     });
             // Create the AlertDialog object and return it
-            builder.create();
+            builder.create().show();
         }
       
     }
