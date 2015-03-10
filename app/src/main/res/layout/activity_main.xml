@@ -23,7 +23,10 @@
         android:layout_alignBottom="@+id/view"
         android:layout_alignLeft="@+id/view"
         android:layout_alignStart="@+id/view"
-        android:indeterminate="false" />
+        android:indeterminate="false"
+        android:progress="50"
+        android:progressDrawable="@drawable/progressbar"
+        android:layout_marginTop="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,7 +45,9 @@
         android:layout_above="@+id/timer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:indeterminate="false" />
+        android:indeterminate="false"
+        android:progress="50"
+        android:progressDrawable="@drawable/progressbar"/>
 
     <ImageView
         android:layout_width="15dp"
