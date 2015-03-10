@@ -44,6 +44,27 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+    public  void gameover() {
+        tempsRestant=0;
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage(R.string.game_over)
+                .setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        trafficView.init();
+                        tempsRestant = 600;
+                        update();
+
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        // Create the AlertDialog ob1ject and return it
+        builder.create().show();
+    }
+
     private RefreshHandler handler;
 
     private TextView nb_voit;
@@ -54,38 +75,30 @@ public class MainActivity extends ActionBarActivity {
             handler.sleep(40);
             trafficView.act();
 
-            int tmptotal = trafficView.getTmpstotal();
-            ProgressBar progressBar = (ProgressBar) findViewById(R.id.pas_content);
-            progressBar.setProgress(tmptotal);
-            //}
-            int nbVoitures = trafficView.getNbVoitures(); // on récupère le nombre de voitures dans TrafficView
-            nb_voit = (TextView) findViewById(R.id.nb_voit); // on récupère le TextView
-            nb_voit.setText(""+nbVoitures);
-
             tempsRestant--;
+            if (tempsRestant==0){
+                   gameover();
+            } else {
 
-            timer.setProgress(tempsRestant);
+                timer.setProgress(tempsRestant);
+                int tmptotal = trafficView.getTmpstotal();
+                if (tmptotal < 100) {
 
-        } else {
+                    ProgressBar progressBar = (ProgressBar) findViewById(R.id.pas_content);
+                    progressBar.setProgress(tmptotal);
+                } else {
+                    ProgressBar progressBar = (ProgressBar) findViewById(R.id.pas_content);
+                    progressBar.setProgress(100);
+                    gameover();
+                }
+                int nbVoitures = trafficView.getNbVoitures(); // on récupère le nombre de voitures dans TrafficView
+                nb_voit = (TextView) findViewById(R.id.nb_voit); // on récupère le TextView
+                nb_voit.setText("" + nbVoitures);
+            }
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setMessage(R.string.game_over)
-                    .setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                        }
-                    })
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                        }
-                    });
-            // Create the AlertDialog object and return it
-            builder.create().show();
         }
       
     }
-
-
 
 
     @Override
@@ -98,8 +111,8 @@ public class MainActivity extends ActionBarActivity {
 
         // on démarre l'animation
         timer = (ProgressBar) findViewById(R.id.timer);
-        timer.setMax(200);
-        tempsRestant = 200;
+        timer.setMax(600);
+        tempsRestant = 600;
         update();
     }
 
