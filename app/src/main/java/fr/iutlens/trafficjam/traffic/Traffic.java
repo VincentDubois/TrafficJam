@@ -73,8 +73,9 @@ public class Traffic {
 
         // Ajout si possible de nouveaux véhicules
         for(Track t : track ){
+            double aleatoire = t.freq; //la freq
             int ndx = map.getNdx(t);
-            if (current.get(ndx) == null && Math.random() <0.25){ // 1 fois 4 qd la position est libre
+            if (current.get(ndx) == null && Math.random() < (aleatoire/100)){ // 1 fois 4 qd la position est libre
                 Car car = new Car(t);
                 if (next.get(map.getNextMoveNdx(car))== null)  car.setSpeed(1); //roule si voie libre.
                 current.put(map.getNdx(car), car);
@@ -83,7 +84,5 @@ public class Traffic {
 
         next.clear();
     }
-
-
 
 }

@@ -9,17 +9,21 @@ public class Track {
     public int iS,jS; // Position de départ
     String moves; // déplacements :  0 1 2 3 -> N E S O
 
+    public int freq;  //**********modif************
+
     /***
      * Créé une Track à partir de la description
      * @param description "x0:y0:chemin", avec chemin une suite de direction.
      *                  (0 1 2 3 correspondent respectivement à N E S O)
      */
+
     public Track(String description){
 
         String[] part = description.split(":");
         iS = Integer.parseInt(part[0]);
         jS = Integer.parseInt(part[1]);
         moves = part[2];
+        freq = Integer.parseInt(part[3]); //***********modif************
     }
 
     /***
