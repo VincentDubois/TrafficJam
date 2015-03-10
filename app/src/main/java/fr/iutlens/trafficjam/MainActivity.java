@@ -38,8 +38,8 @@ public class MainActivity extends ActionBarActivity {
 
     private RefreshHandler handler;
 
-    private void update() {
-        handler.sleep(40);
+    private void update() { // mise à jours
+        handler.sleep(40);  // toutes les 40ms
         trafficView.act();
     }
 
