@@ -90,7 +90,8 @@ public class TrafficView extends View {
 
     void init(){
 
-        nbVoitures = 60; // nombre de voiture initiailisé à 60 en début de partie
+        nbVoitures = 60; // nombre de voiture initiailisé en début de partie
+        // TODO : nombre de voitures à définir selon la difficulté du jeu
 
         coord = new CoordSystem(-7,2,4,6);
 

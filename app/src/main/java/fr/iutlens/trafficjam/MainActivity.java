@@ -52,7 +52,7 @@ public class MainActivity extends Activity {
 
     private void update() {
 
-        if (tempsRestant > 0) {
+        if (tempsRestant > 0 && trafficView.getNbVoitures()>0) {
             handler.sleep(40);
             trafficView.act();
 
@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
 
             timer.setProgress(tempsRestant);
 
-        } else {
+        } else if (tempsRestant <= 0) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setMessage(R.string.game_over)
@@ -83,6 +83,25 @@ public class MainActivity extends Activity {
                     });
             // Create the AlertDialog object and return it
             builder.create().show();
+
+        } else if (trafficView.getNbVoitures() <= 0) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage(R.string.win)
+                    .setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            builder.create().show();
+
+            // TODO : Gérer la possibilité de retourner au menu et de rejouer
+
         }
       
     }
@@ -100,8 +119,8 @@ public class MainActivity extends Activity {
 
         // on démarre l'animation
         timer = (ProgressBar) findViewById(R.id.timer);
-        timer.setMax(200);
-        tempsRestant = 200;
+        timer.setMax(300); // valeur de base : 200
+        tempsRestant = 300; // valeur de base : 200
         update();
     }
 
