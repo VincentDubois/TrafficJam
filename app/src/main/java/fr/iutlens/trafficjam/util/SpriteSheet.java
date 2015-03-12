@@ -25,8 +25,9 @@ public class SpriteSheet {
 	
 	static {
 		map = new HashMap();
-		
-		map.put(R.drawable.sprite, new SpriteSheet(6,4));
+
+        // à modifier pour la découpe du sprite (6*4
+        map.put(R.drawable.sprite, new SpriteSheet(6,4));
 
 
 		
