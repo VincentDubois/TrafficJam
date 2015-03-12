@@ -1,5 +1,7 @@
 package fr.iutlens.trafficjam;
 
+import android.app.Activity;
+import android.os.Bundle;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Handler;
@@ -71,9 +73,17 @@ public class MainActivity extends ActionBarActivity {
 
     private void update() {
 
-        if (tempsRestant > 0) {
+        if (tempsRestant > 0 && trafficView.getNbVoitures()>0) {
             handler.sleep(40);
             trafficView.act();
+
+            int tmptotal = trafficView.getTmpstotal();
+            ProgressBar progressBar = (ProgressBar) findViewById(R.id.pas_content);
+            progressBar.setProgress(tmptotal);
+            //}
+            int nbVoitures = trafficView.getNbVoitures(); // on récupère le nombre de voitures dans TrafficView
+            nb_voit = (TextView) findViewById(R.id.nb_voit); // on récupère le TextView
+            nb_voit.setText(""+nbVoitures);
 
             tempsRestant--;
             if (tempsRestant==0){
@@ -81,24 +91,59 @@ public class MainActivity extends ActionBarActivity {
             } else {
 
                 timer.setProgress(tempsRestant);
-                int tmptotal = trafficView.getTmpstotal();
+                tmptotal = trafficView.getTmpstotal();
                 if (tmptotal < 100) {
 
-                    ProgressBar progressBar = (ProgressBar) findViewById(R.id.pas_content);
+        } else if (tempsRestant <= 0) {
+                    progressBar = (ProgressBar) findViewById(R.id.pas_content);
                     progressBar.setProgress(tmptotal);
                 } else {
-                    ProgressBar progressBar = (ProgressBar) findViewById(R.id.pas_content);
+                    progressBar = (ProgressBar) findViewById(R.id.pas_content);
                     progressBar.setProgress(100);
                     gameover();
                 }
-                int nbVoitures = trafficView.getNbVoitures(); // on récupère le nombre de voitures dans TrafficView
+                nbVoitures = trafficView.getNbVoitures();
                 nb_voit = (TextView) findViewById(R.id.nb_voit); // on récupère le TextView
                 nb_voit.setText("" + nbVoitures);
             }
 
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage(R.string.game_over)
+                    .setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            builder.create().show();
+
+        } else if (trafficView.getNbVoitures() <= 0) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage(R.string.win)
+                    .setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            builder.create().show();
+
+            // TODO : Gérer la possibilité de retourner au menu et de rejouer
+
         }
       
     }
+
+
 
 
     @Override
@@ -111,8 +156,8 @@ public class MainActivity extends ActionBarActivity {
 
         // on démarre l'animation
         timer = (ProgressBar) findViewById(R.id.timer);
-        timer.setMax(600);
-        tempsRestant = 600;
+        timer.setMax(1000);
+        tempsRestant = 1000;
         update();
     }
 
