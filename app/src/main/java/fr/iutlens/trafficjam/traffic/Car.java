@@ -1,5 +1,7 @@
 package fr.iutlens.trafficjam.traffic;
 
+import fr.iutlens.trafficjam.MainActivity;
+
 /**
  * Created by dubois on 20/01/15.
  */

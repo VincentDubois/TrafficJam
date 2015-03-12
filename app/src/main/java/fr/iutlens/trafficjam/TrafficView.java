@@ -88,7 +88,7 @@ public class TrafficView extends View {
         this.invalidate(); // La vue a changé, on demande le rafraîchissement de l'affichage.
     }
 
-    void init(){
+    public void init(){
 
         nbVoitures = 60; // nombre de voiture initiailisé en début de partie
         // TODO : nombre de voitures à définir selon la difficulté du jeu
@@ -207,11 +207,14 @@ public class TrafficView extends View {
         Signalisation signalisation = new Signalisation(feu);
         traffic = new Traffic(map, track, signalisation, this);
 
-        transform = new Matrix();
-        reverse = new Matrix();
+        if (transform == null) {
+            transform = new Matrix();
+            reverse = new Matrix();
 
-        sprite = SpriteSheet.get(this.getContext(), R.drawable.sprite);
-        src = new Rect(0,0, sprite.w, sprite.h);
+
+            sprite = SpriteSheet.get(this.getContext(), R.drawable.sprite);
+            src = new Rect(0, 0, sprite.w, sprite.h);
+        }
     }
 
     public void onDraw(Canvas canvas){
