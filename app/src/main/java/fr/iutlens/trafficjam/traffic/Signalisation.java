@@ -4,9 +4,9 @@ public class Signalisation {
         private Feu[] feu;
 
 
-    public boolean invertLight() {
+    public boolean invertLight(float[] pts) {
         for(Feu f : feu ) {
-            f.invertLight();
+            f.invertLight(pts);
         }
         return false;
     }

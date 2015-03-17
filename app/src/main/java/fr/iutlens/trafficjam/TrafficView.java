@@ -287,9 +287,14 @@ public class TrafficView extends View {
 
     public boolean onTouchEvent(MotionEvent event) {
         int stopfeu = event.getAction();
+
         switch (stopfeu) {
             case MotionEvent.ACTION_DOWN:
-                traffic.invertLight();
+                float[] pts = {event.getX(),event.getY()};
+                reverse.mapPoints(pts);
+                //coord.inverse.map...
+                coord.inverse.mapPoints(pts);
+                traffic.invertLight(pts);
                 break;
         }
         return true;
