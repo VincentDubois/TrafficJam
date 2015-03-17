@@ -6,7 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="cancel">Retour au menu</string>
     <string name="retry">Rejouer</string>
-    <string name="game_over">Temps écoulé !</string>
+    <string name="game_over">Perdu !</string>
     <string name="win">Gagné !</string>
 
 </resources>

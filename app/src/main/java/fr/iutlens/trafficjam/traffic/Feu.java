@@ -21,10 +21,10 @@ public class Feu {
     private void update() {
         for(int i=0;i<=3;i++){
             if(!light) {
-                map.setColor(ndx[i], 4 + i % 2);
+                map.setColor(ndx[i], 18 + i % 2);
             }
             else{
-                map.setColor(ndx[i], 5 - i % 2);
+                map.setColor(ndx[i], 19 - i % 2);
             }
         }
     }
