@@ -1,6 +1,7 @@
 package fr.iutlens.trafficjam;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,6 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
+
+import fr.iutlens.trafficjam.traffic.BackgroundSoundService;
 
 
 public class MainActivity extends Activity {
@@ -75,6 +78,7 @@ public class MainActivity extends Activity {
             timer.setProgress(tempsRestant);
             if (tempsRestant == 0) {
                 popupFin(R.string.game_over);
+
             }
 
 
@@ -91,12 +95,16 @@ public class MainActivity extends Activity {
 
     private void popupFin(int message) {
         tempsRestant = 0;
+        Intent svc=new Intent(MainActivity.this, BackgroundSoundService.class);
+        stopService(svc);
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setMessage(message)
                 .setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         trafficView.init();
                         tempsRestant = 1000;
+                        Intent svc=new Intent(MainActivity.this, BackgroundSoundService.class);
+                        startService(svc);
                         update();
                     }
                 })
@@ -145,5 +153,18 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        Intent svc=new Intent(MainActivity.this, BackgroundSoundService.class);
+        startService(svc);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Intent svc=new Intent(MainActivity.this, BackgroundSoundService.class);
+        stopService(svc);
     }
 }
