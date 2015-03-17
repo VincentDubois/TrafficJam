@@ -9,6 +9,7 @@
     <string name="game_over">Perdu !</string>
     <string name="win">Gagné !</string>
     <string name="title_activity_background_sound_service">BackgroundSoundService</string>
+    <string name="win">Gagné !</string>
     <string name="nouvelle">Nouvelle Partie</string>
     <string name="option">Options</string>
     <string name="propos">A propos</string>
