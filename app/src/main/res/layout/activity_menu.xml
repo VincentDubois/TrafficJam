@@ -2,26 +2,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="10dp"
+    android:paddingRight="0dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
     android:orientation="horizontal"
-    tools:context="fr.iutlens.trafficjam.traffic.MenuActivity"
+    tools:context="fr.iutlens.trafficjam.MenuActivity"
     android:weightSum="1"
     android:background="#ff000000">
 
     <ImageView
-        android:layout_width="322dp"
-        android:layout_height="195dp"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
         android:id="@+id/imageView2"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/background" />
+        android:src="@drawable/car"
+        android:layout_weight="0.50"
+        android:scaleType="fitCenter" />
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.50">
 
         <Button
             android:layout_width="match_parent"
@@ -29,7 +32,8 @@
             android:text="@string/nouvelle"
             android:id="@+id/button"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="newgame" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -38,7 +42,8 @@
             android:text="@string/option"
             android:id="@+id/button2"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="options" />
 
         <Button
             android:layout_width="match_parent"
@@ -46,7 +51,8 @@
             android:text="@string/propos"
             android:id="@+id/button3"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="propos" />
 
         <Button
             android:layout_width="match_parent"
@@ -54,7 +60,8 @@
             android:text="@string/quit"
             android:id="@+id/button4"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="quit" />
     </LinearLayout>
 
 </LinearLayout>
