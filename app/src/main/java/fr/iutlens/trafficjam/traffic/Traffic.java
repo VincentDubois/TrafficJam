@@ -19,8 +19,8 @@ public class Traffic {
     private Signalisation signalisation;
     private TrafficView trafficView;
 
-    public boolean invertLight() {
-        return signalisation.invertLight();
+    public boolean invertLight(float[] pts) {
+        return signalisation.invertLight(pts);
     }
 
     public Traffic(LevelMap map, Track[] track, Signalisation signalisation, TrafficView trafficView) {
