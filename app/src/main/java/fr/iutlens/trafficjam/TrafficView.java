@@ -80,7 +80,7 @@ public class TrafficView extends View {
      * Fait progresser la vue d'une image
      */
     void act(){
-       progress += 0.1; // les voitures en mouvement avancent de 10% d'une case
+       progress += 0.15; // les voitures en mouvement avancent de 10% d'une case
         if (progress >=1){ // Si on arrive à la case d'après, on recalcule les prochains mouvements.
             progress = 0;
             traffic.moveAll();
@@ -90,7 +90,7 @@ public class TrafficView extends View {
 
     public void init(){
 
-        nbVoitures = 60; // nombre de voiture initiailisé en début de partie
+        nbVoitures = 40; // nombre de voiture initiailisé en début de partie
         // TODO : nombre de voitures à définir selon la difficulté du jeu
 
         coord = new CoordSystem(-7,2,4,6);
@@ -148,8 +148,8 @@ public class TrafficView extends View {
                 {-1,20,20,20,20,20,20,20,20,20,07,12,13,04,20,20,20,20,07,12,13,04,20,20,20,20,20,20,20,20,20,-1},//12
                 {-1,20,20,20,20,20,20,20,20,20,07,12,13,04,20,20,20,20,07,12,13,04,20,20,20,20,20,20,20,20,20,-1},//13
                 {-1,20,20,20,20,20,20,20,20,20,07,12,13,04,20,11,05,05,03,12,13,04,20,20,20,20,20,20,20,20,20,-1},//14
-                {-1,20,20,20,20,20,20,20,20,20,07,12,13,04,20,07,26,15,15,24,13,04,20,20,20,20,20,20,20,20,20,-1},//15
-                {-1,20,20,20,20,20,20,20,20,20,07,12,13,04,20,07,12,25,14,14,16,04,20,20,20,20,20,20,20,20,20,-1},//16
+                {-1,20,20,20,20,20,20,20,20,20,07,12,13,04,20,07,16,16,15,12,13,04,20,20,20,20,20,20,20,20,20,-1},//15
+                {-1,20,20,20,20,20,20,20,20,20,07,12,13,04,20,07,12,13,14,16,16,04,20,20,20,20,20,20,20,20,20,-1},//16
                 {-1,20,20,20,20,20,20,20,20,20,07,12,13,04,20,07,12,13,01,06,06, 9,20,20,20,20,20,20,20,20,20,-1},//17
                 {-1,20,20,20,20,20,20,20,20,20,07,12,13,04,20,07,12,13,04,20,20,20,20,20,20,20,20,20,20,20,20,-1},//18
                 {-1,05,05,05,05,05,05,05,05,05,03,12,13,00,05,03,12,13,00,05,05,05,05,05,05,05,05,05,05,05,05,-1},//19
@@ -272,10 +272,10 @@ public class TrafficView extends View {
         // Dimensions dans lesquelles ont souhaite dessiner
         RectF src = coord.bounds(0,0,map.getWidth(),map.getHeight(),tmp);
 
-        src.top += 81;           //30        88
-        src.left += 90;          //35        48
-        src.bottom += -81;       //30        88
-        src.right += -90;        //35        48
+        src.top += 81;
+        src.left += 90;
+        src.bottom += -81;
+        src.right += -90;
 
         // Dimensions à notre disposition
         RectF dst = new RectF(0,0,w,h);
@@ -287,9 +287,14 @@ public class TrafficView extends View {
 
     public boolean onTouchEvent(MotionEvent event) {
         int stopfeu = event.getAction();
+
         switch (stopfeu) {
             case MotionEvent.ACTION_DOWN:
-                traffic.invertLight();
+                float[] pts = {event.getX(),event.getY()};
+                reverse.mapPoints(pts);
+                //coord.inverse.map...
+                coord.inverse.mapPoints(pts);
+                traffic.invertLight(pts);
                 break;
         }
         return true;
