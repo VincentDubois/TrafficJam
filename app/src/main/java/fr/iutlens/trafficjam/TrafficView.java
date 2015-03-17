@@ -80,7 +80,7 @@ public class TrafficView extends View {
      * Fait progresser la vue d'une image
      */
     void act(){
-       progress += 0.1; // les voitures en mouvement avancent de 10% d'une case
+       progress += 0.15; // les voitures en mouvement avancent de 10% d'une case
         if (progress >=1){ // Si on arrive à la case d'après, on recalcule les prochains mouvements.
             progress = 0;
             traffic.moveAll();
@@ -90,7 +90,7 @@ public class TrafficView extends View {
 
     public void init(){
 
-        nbVoitures = 60; // nombre de voiture initiailisé en début de partie
+        nbVoitures = 40; // nombre de voiture initiailisé en début de partie
         // TODO : nombre de voitures à définir selon la difficulté du jeu
 
         coord = new CoordSystem(-7,2,4,6);
