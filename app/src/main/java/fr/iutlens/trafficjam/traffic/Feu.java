@@ -29,10 +29,18 @@ public class Feu {
         }
     }
 
-    public boolean invertLight(){
-        light=!light;
-        update();
-        return light;
+    public void invertLight(float[] pts){
+        float x0=i+1;
+        float y0=j+1;
+        float x1=pts[0];
+        float y1=pts[1];
+        float dx=x0-x1;
+        float dy=y0-y1;
+
+        if(dx*dx+dy*dy<=4) { // clic à moins de ... en distance
+            light = !light;
+            update();
+        }
     }
 
     public boolean allowMove(int position, int direction) {

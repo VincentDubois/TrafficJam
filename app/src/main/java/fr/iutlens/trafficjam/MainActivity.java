@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
+import fr.iutlens.trafficjam.traffic.Car;
+
 
 public class MainActivity extends Activity {
 
@@ -52,7 +54,7 @@ public class MainActivity extends Activity {
 
     private void update() {
 
-        if (tempsRestant > 0 ) {
+        if (tempsRestant > 0 && trafficView.getNbVoitures() >0 ) {
             handler.sleep(40);
             trafficView.act();
 
