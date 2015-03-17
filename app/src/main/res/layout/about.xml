@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A propos"
+        android:id="@+id/about"
+        android:layout_gravity="center_horizontal"
+        android:textSize="32dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cette application a été réalisée par les étudiants du DUT Métiers du Multimédia et de l&apos;Internet (MMI) de l&apos;IUT de Lens dans le cadre d&apos;un cours de programmation android."
+        android:id="@+id/description"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="<b>BOGAERT Emeline</b> // BOROWCZYK Morganne // BOUQUET Romain // CRESSON Quentin // DROLEZ Fanny // FOULONT Paul // GALLET Clément // MACHEN Rémi // MOTTIER Bastien // PIELA Pierre-François // TRINEL Léa // WINTREBERT Benjamin"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp" />
+
+</LinearLayout>
