@@ -48,6 +48,7 @@ public class TrafficView extends View {
 
     // Configuration du compteur de voitures
     private int nbVoitures; // crée un champ du nombre de voitures à faire passer
+    private int[] offsets;
 
     public int getNbVoitures() { // fonction permettant de récupérer le nombre de voiture restant à faire passer
         return nbVoitures;
@@ -108,7 +109,7 @@ public class TrafficView extends View {
         // TODO : nombre de voitures à définir selon la difficulté du jeu
 
 
-        Level level = new Level(1, this);
+        Level level = new Level(3, this);
 
      /*  Niveau de Quentin(Level2)
 
@@ -215,6 +216,12 @@ public class TrafficView extends View {
 //        Signalisation signalisation = level.getsignalisation(); //new Signalisation(feu);
 
         traffic = level.getTraffic();  //  new Traffic(map, track, signalisation, this);
+        offsets = level.getoffsets(); //new int[]{81,90,-81,-90};
+
+
+
+
+        setZoom(getWidth(),getHeight());
     }
 
     public void onDraw(Canvas canvas){
@@ -272,10 +279,12 @@ public class TrafficView extends View {
         // Dimensions dans lesquelles ont souhaite dessiner
         RectF src = coord.bounds(0,0,map.getWidth(),map.getHeight(),tmp);
 
-        src.top += 81;           //30        88
-        src.left += 90;          //35        48
-        src.bottom += -81;       //30        88
-        src.right += -90;        //35        48
+
+
+        src.top += offsets[0];           //30        88
+        src.left += offsets[1];          //35        48
+        src.bottom += offsets[2];       //30        88
+        src.right += offsets[3];        //35        48
 
         // Dimensions à notre disposition
         RectF dst = new RectF(0,0,w,h);
