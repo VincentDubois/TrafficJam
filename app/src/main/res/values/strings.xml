@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Traffic Jam</string>
+    <string name="app_name">Panic Road</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="cancel">Retour au menu</string>
     <string name="retry">Rejouer</string>
     <string name="game_over">Perdu !</string>
-    <string name="win">Gagné !</string>
+    <string name="nouvelle">Nouvelle Partie</string>
+    <string name="option">Options</string>
+    <string name="propos">A propos</string>
+    <string name="quit">Quitter</string>
+    <string name="title_activity_menu">Panic Road</string>
 
 </resources>

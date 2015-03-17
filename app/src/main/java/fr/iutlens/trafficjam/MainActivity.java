@@ -1,11 +1,11 @@
 package fr.iutlens.trafficjam;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
@@ -13,8 +13,10 @@ import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
+import fr.iutlens.trafficjam.traffic.Car;
 
-public class MainActivity extends ActionBarActivity {
+
+public class MainActivity extends Activity {
 
 
     private TrafficView trafficView;
@@ -52,7 +54,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void update() {
 
-        if (tempsRestant > 0 ) {
+        if (tempsRestant > 0 && trafficView.getNbVoitures() >0 ) {
             handler.sleep(40);
             trafficView.act();
 
