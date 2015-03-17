@@ -93,10 +93,11 @@ public class TrafficView extends View {
         nbVoitures = 60; // nombre de voiture initiailisé en début de partie
         // TODO : nombre de voitures à définir selon la difficulté du jeu
 
-     /*  Niveau de Quentin
+        coord = new CoordSystem(-7,2,4,6);
+
+     /*  Niveau de Quentin(Level2)
 
 
-      coord = new CoordSystem(-7,2,4,6);
 
         int[][] data = {
                 {20,20,20,20,20,20,20,7,12,13,4,20,20,20,20,20,20,20,20,20},
@@ -126,6 +127,23 @@ public class TrafficView extends View {
                 {20,20,20,20,20,20,20,7,12,13,4,20,20,20,20,20,20,20,20,20},
                 {20,20,20,20,20,20,20,7,12,13,4,20,20,20,20,20,20,20,20,20},
                 {20,20,20,20,20,20,20,7,12,13,4,20,20,20,20,20,20,20,20,20},
+
+                     map = new LevelMap(data);
+
+        Track[] track = new Track[]{
+
+                new Track("9:-1:000000000000000011111111112222222222222222"),
+                new Track("-1:8:111111111100000001111111111222222211111"),
+                new Track("-1:8:11111111111111111111"),
+                new Track("14:-1:000000000000000000000"),
+                new Track("14:-1:00000000011111222222222"),
+                };
+                //Fin du niveau Quentin
+
+
+
+                //Debut niveau Léa
+
         //                                       NIVEAU 1 (didacticiel)
 //        int[][] data = {
 //                //                              1  1  1  1  1  1  1  1  1  1  2  2  2  2  2  2
@@ -160,7 +178,22 @@ public class TrafficView extends View {
 //        };
 
 
-//                                        NIVEAU 2
+                   map = new LevelMap(data);
+
+                   // new Track("12:0:000000000000000000011111:10"), //HAUT GAUCHE
+                   // new Track("22:20:333333333332222222222222222222:10"), //BAS DROITE
+                   // new Track("1:11:11111111111111111111111111111:20"), //BAS GAUCHE
+                   // new Track("25:12:3333333333333333333333333333:20"), //HAUT DROITE
+
+        };
+
+
+
+        Fin du niveau Léa
+        */
+
+        //Niveau Actif
+
         int[][] data = {
                 //                              1  1  1  1  1  1  1  1  1  1  2  2  2  2  2  2  2  2  2  2, 3, 3
                 // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1
@@ -197,57 +230,31 @@ public class TrafficView extends View {
                 {-1,20,20,20,20,20,20,20,20,20,20,20,20,20,20,07,12,13,04,20,20,20,20,20,20,20,20,20,20,20,20,-1},//30
                 {-1,20,20,20,20,20,20,20,20,20,20,20,20,20,20,07,12,13,04,20,20,20,20,20,20,20,20,20,20,20,20,-1},//31
         };
+                  map = new LevelMap(data);
 
+                Track[] track = new Track[]{
 
+                        new Track("9:26:222222222222222111111111112222222:10"), //BAS DROITE suis la route puis tourne à gauche à la prochaine intersection, puis à droite
+                         new Track("9:26:22222233333:5"), //BAS DROITE vers la droite
 
-        };
-        map = new LevelMap(data);
+                         new Track("21:3:00000000000000333330003333333333333:2"), //HAUT GAUCHE prend la petite route avec le virage
 
-        Track[] track = new Track[]{
+                         new Track("3:19:111111111111222111111111111111:5"), //HAUT DROITE vas tout droit et prend la petite route
 
-                new Track("9:-1:000000000000000011111111112222222222222222"),
-                new Track("-1:8:111111111100000001111111111222222211111"),
-                new Track("-1:8:11111111111111111111"),
-                new Track("14:-1:000000000000000000000"),
-                new Track("14:-1:00000000011111222222222"),
-//          NIVEAU 2
-                new Track("9:26:222222222222222111111111112222222:10"), //BAS DROITE suis la route puis tourne à gauche à la prochaine intersection, puis à droite
-                new Track("9:26:22222233333:5"), //BAS DROITE vers la droite
+                         new Track("20:21:2222222222222222222:15"), //BAS MILIEU
+                         new Track("21:2:00000000003333333333300000000333333:10"), //virages
 
-        Fin du niveau Quentin
-        */
-                new Track("21:3:00000000000000333330003333333333333:2"), //HAUT GAUCHE prend la petite route avec le virage
-                new Track("3:19:111111111111222111111111111111:5"), //HAUT DROITE vas tout droit et prend la petite route
+                         new Track("28:17:3333333000000000:5"), //BAS GAUCHE
 
-                new Track("20:21:2222222222222222222:15"), //BAS MILIEU
-                new Track("21:2:00000000003333333333300000000333333:10"), //virages
-
-                new Track("28:17:3333333000000000:5"), //BAS GAUCHE
+                         new Track("21:2:000000000000000000:12"), //HAUT GAUCHE vas tout droit
+                         new Track("21:2:0000000000000011111111:7"), //HAUT GAUCHE tourne à droite
 
 
 
 
-                //depart des route horizontal
-                // 1er route
-           //     new Track("-1:2:1111111111111111"),// tout droit
-           //     new Track("-1:2:111222"),// 1ere a droite
-            //    new Track("-1:2:1111111222"),// 2eme a droite
-           //     new Track("-1:2:11111111111222"), // 3eme a droite
-            //    new Track("-1:2:11111111111111222"), //4 eme a droite
-
-                //2eme route
 
 
 
-              // new Track("-1:2:111222"),//route de droite tourne a droite
-             //   new Track("-1:2:1111111"),//route de droite tout droit
-             //   new Track("-1:2:1111000"),// route de droit a gauche
-
-            //    new Track("3:-1:000000"),
-             //   new Track("2:6:222333"),
-             //   new Track("6:3:333000"), //route de gauche tourne a droite
-            //    new Track("6:3:333333"),//route de gauche tout droit
-           //     new Track("6:3:33332222"),//route de gauche tourne a gauche
         };
 
         Feu[] feu = new Feu[]{
