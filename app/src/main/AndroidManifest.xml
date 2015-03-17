@@ -22,6 +22,10 @@
             android:name=".traffic.BackgroundSoundService"
             android:label="@string/title_activity_background_sound_service" >
         </activity>
+        <activity
+            android:name=".traffic.MenuActivity"
+            android:label="@string/title_activity_menu" >
+        </activity>
     </application>
 
 </manifest>

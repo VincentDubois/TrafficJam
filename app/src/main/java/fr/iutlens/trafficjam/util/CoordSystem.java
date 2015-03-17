@@ -12,7 +12,8 @@ public class CoordSystem {
 
     //Système de projection cavalière
 
-    Matrix projection,inverse;
+    Matrix projection;
+    public Matrix inverse;
 
     /***
      * Crée le système de projection à partir des vecteurs i et j
