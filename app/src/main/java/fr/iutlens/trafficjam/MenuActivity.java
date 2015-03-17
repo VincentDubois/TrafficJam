@@ -1,5 +1,6 @@
-package fr.iutlens.trafficjam.traffic;
+package fr.iutlens.trafficjam;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,7 +11,7 @@ import android.view.View;
 import fr.iutlens.trafficjam.MainActivity;
 import fr.iutlens.trafficjam.R;
 
-public class MenuActivity extends ActionBarActivity {
+public class MenuActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
