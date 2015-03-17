@@ -7,6 +7,10 @@
     <string name="cancel">Retour au menu</string>
     <string name="retry">Rejouer</string>
     <string name="game_over">Perdu !</string>
-    <string name="win">Gagné !</string>
+    <string name="nouvelle">Nouvelle Partie</string>
+    <string name="option">Options</string>
+    <string name="propos">A propos</string>
+    <string name="quit">Quitter</string>
+    <string name="title_activity_menu">Panic Road</string>
 
 </resources>
