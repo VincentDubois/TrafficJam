@@ -22,7 +22,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="<b>BOGAERT Emeline</b> // BOROWCZYK Morganne // BOUQUET Romain // CRESSON Quentin // DROLEZ Fanny // FOULONT Paul // GALLET Clément // MACHEN Rémi // MOTTIER Bastien // PIELA Pierre-François // TRINEL Léa // WINTREBERT Benjamin"
+        android:text="BOGAERT Emeline // BOROWCZYK Morganne // BOUQUET Romain // CRESSON Quentin // DROLEZ Fanny // FOULONT Paul // GALLET Clément // MACHEN Rémi // MOTTIER Bastien // PIELA Pierre-François // TRINEL Léa // WINTREBERT Benjamin"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp" />

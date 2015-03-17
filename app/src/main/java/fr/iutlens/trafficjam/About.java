@@ -2,21 +2,17 @@ package fr.iutlens.trafficjam;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import fr.iutlens.trafficjam.MainActivity;
-import fr.iutlens.trafficjam.R;
-
-public class MenuActivity extends Activity {
+public class About extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.about);
     }
 
 
@@ -27,24 +23,7 @@ public class MenuActivity extends Activity {
         return true;
     }
 
-    public void newgame(View view){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 
-    public void propos(View view){
-        Intent intent = new Intent(this, About.class);
-        startActivity(intent);
-    }
-
-    public void quit(View view){
-        finish();
-    }
-
-
-    public void options(View view){
-
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
